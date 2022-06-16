@@ -1,0 +1,41 @@
+name: Cleanbuild Lava Build CronJob
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 17 15 * *'
+
+env:
+  GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
+
+jobs:
+  Initiate-Build:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Checkouts
+         uses: actions/checkout@v2
+         
+       - name: Make Repo Public
+         run: |
+              REPO_URL=$(git config --get remote.origin.url) ; REPO_BASE=$(echo "${REPO_URL}" |sed 's/.*\/\///g') ; USERNAME=$(echo $REPO_BASE |sed 's/\/.*//g') ; GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}
+              echo USERNAME_AND_REPO_NAME=$(echo "${REPO_BASE}" | sed 's/github.com\///') >> "${GITHUB_ENV}"
+              curl -X PATCH -H "Accept: application/vnd.github.nebula-preview+json" -H "Authorization: token $GIT_GITHUB_TOKEN" https://api.github.com/repos/$USERNAME_AND_REPO_NAME -d '{"visibility":"public"}'
+              sleep 1m
+       - name: Monthly crDroidAndroid Cleanbuild For lava.
+         run: |
+              DATE=$(date)
+              git config --global user.email "96990463+bruhminusprotesting@users.noreply.github.com"
+              git config --global user.name "bruhminusprotesting"
+              git pull
+              git checkout crdroid-lava
+              sed -i '$ d' download_ccache.sh
+              echo 'CCACHE_RUN=0' >> download_ccache.sh
+              echo "${DATE}" > date_of_last_monthly_clean_build.txt; git add date_of_last_monthly_clean_build.txt
+              git add download_ccache.sh; git commit -m "crdroid-lava: cronjob: Monthly Cleanbuild as of ${DATE}"
+              git push
+       - name: Make Repo Private
+         run: |
+              sleep 1m
+              REPO_URL=$(git config --get remote.origin.url) ; REPO_BASE=$(echo "${REPO_URL}" |sed 's/.*\/\///g') ; USERNAME=$(echo $REPO_BASE |sed 's/\/.*//g') ; GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}
+              echo USERNAME_AND_REPO_NAME=$(echo "${REPO_BASE}" | sed 's/github.com\///') >> "${GITHUB_ENV}"
+              curl -X PATCH -H "Accept: application/vnd.github.nebula-preview+json" -H "Authorization: token $GIT_GITHUB_TOKEN" https://api.github.com/repos/$USERNAME_AND_REPO_NAME -d '{"visibility":"private"}'
