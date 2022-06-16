@@ -5,6 +5,9 @@ on:
 
 env:
   GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
+  GIT_CONFIG_EMAIL: "96990463+bruhminusprotesting@users.noreply.github.com"
+  GIT_CONFIG_USERNAME: "bruhminusprotesting"
+  WORKING_BRANCH: "crdroid-merlinx"
 
 jobs:
   Initiate-Build:
@@ -22,14 +25,14 @@ jobs:
        - name: Monthly crDroidAndroid Cleanbuild For merlinx.
          run: |
               DATE=$(date)
-              git config --global user.email "96990463+bruhminusprotesting@users.noreply.github.com"
-              git config --global user.name "bruhminusprotesting"
+              git config --global user.email "$GIT_CONFIG_EMAIL"
+              git config --global user.name "$GIT_CONFIG_USERNAME"
               git pull
-              git checkout crdroid-merlinx
+              git checkout $WORKING_BRANCH
               sed -i '$ d' download_ccache.sh
               echo 'CCACHE_RUN=1' >> download_ccache.sh
               echo "${DATE}" > date_of_last_monthly_clean_build.txt; git add date_of_last_monthly_clean_build.txt
-              git add download_ccache.sh;git commit -m "crdroid-merlinx: Dirtybuild as of ${DATE}"
+              git add download_ccache.sh;git commit -m "$WORKING_BRANCH: Dirtybuild as of ${DATE}"
               git push
        - name: Make Repo Private
          run: |
