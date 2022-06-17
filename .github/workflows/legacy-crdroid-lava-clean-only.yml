@@ -1,4 +1,4 @@
-name: Cleanbuild Lava Build CronJob
+name: (Legacy)Cleanbuild Lava Build CronJob
 
 on:
   workflow_dispatch:

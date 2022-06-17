@@ -1,4 +1,4 @@
-name: Cleanbuild Merlinx Build CronJob
+name: (Legacy)Cleanbuild Merlinx Build CronJob
 
 on:
   workflow_dispatch:
