@@ -20,13 +20,19 @@ task:
       greedy: true
     
     setupcc_script:
+      - SECONDS=0; sleep 5s
       - bash privatize_repo.sh
       - if [[ "$(tail -1 download_ccache.sh)" -ge "15" ]]; then echo "Build Failed!" && exit 1; fi
       - if [[ "$(tail -1 download_ccache.sh)" == "CCACHE_RUN=0" ]]; then echo 'skip ccache'; else bash download_ccache.sh ; fi
+      - sleep 5s
+      - echo $SECONDS
     additional_script:
+      - echo $SECONDS
       - bash additional.sh || true
     sync_script:
-      - if ! timeout 120m bash sync.sh; then bash publisize_repo.sh && bash retry_sync.sh && sleep 5s; fi
+      - SECONDS=0
+      - if ! timeout 25m bash sync.sh; then bash publisize_repo.sh && bash retry_sync.sh; fi
+      - echo $SECONDS 
     patch_script:
       - bash patch.sh
     build_script:
