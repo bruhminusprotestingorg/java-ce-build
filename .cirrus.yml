@@ -20,25 +20,31 @@ task:
       greedy: true
     
     setupcc_script:
-      - SECONDS=0; sleep 5s
+      - SECONDS=0
       - bash privatize_repo.sh
       - if [[ "$(tail -1 download_ccache.sh)" -ge "15" ]]; then echo "Build Failed!" && exit 1; fi
       - if [[ "$(tail -1 download_ccache.sh)" == "CCACHE_RUN=0" ]]; then echo 'skip ccache'; else bash download_ccache.sh ; fi
-      - sleep 5s
-      - echo $SECONDS
+      - echo $SECONDS > /tmp/ci/seconds.txt
     additional_script:
-      - echo $SECONDS
+      - SECONDS=$(< /tmp/ci/seconds.txt)
       - bash additional.sh || true
+      - echo $SECONDS > /tmp/ci/seconds.txt
     sync_script:
-      - SECONDS=0
-      - if ! timeout 25m bash sync.sh; then bash publisize_repo.sh && bash retry_sync.sh; fi
-      - echo $SECONDS 
+      - SECONDS=$(< /tmp/ci/seconds.txt)
+      - if ! timeout 30m bash sync.sh; then bash publisize_repo.sh && bash retry_sync.sh; fi
+      - echo $SECONDS > /tmp/ci/seconds.txt
+      - echo "Sync Took "$(($SECONDS / 60))"m to execute"
     patch_script:
+      - SECONDS=$(< /tmp/ci/seconds.txt)
       - bash patch.sh
+      - echo $SECONDS > /tmp/ci/seconds.txt
     build_script:
-      - bash build.sh      
+      - SECONDS=$(< /tmp/ci/seconds.txt)
+      - echo "Build Timeout in "$(( $((6660 - $SECONDS)) / 60 ))"m"
+      - timeout "$((6660 - $SECONDS))"s bash build.sh
+      - echo $SECONDS > /tmp/ci/seconds.txt
     ccupload_script:
       - bash upload_ccache.sh
     telegram_script:
       - bash tg.sh || true
-      - sleep 10s
+      - sleep 5s
