@@ -41,9 +41,7 @@ task:
     build_script:
       - SECONDS=$(< /tmp/ci/seconds.txt)
       - echo "Build Timeout in "$(( $((6660 - $SECONDS)) / 60 ))"m"
-      - #timeout "$((6660 - $SECONDS))"s bash -c "build.sh"
-      - sudo chmod 777 /tmp/ci/build.sh
-      - bash "/tmp/ci/build.sh"
+      - bash build.sh
       - echo $SECONDS > /tmp/ci/seconds.txt
     ccupload_script:
       - bash upload_ccache.sh
