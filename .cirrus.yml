@@ -41,10 +41,9 @@ task:
     build_script:
       - SECONDS=$(< /tmp/ci/seconds.txt)
       - echo "Build Timeout in "$(( $((6660 - $SECONDS)) / 60 ))"m"
-      - timeout "$((6660 - $SECONDS))"s bash -c "build.sh"
+      - bash build.sh
       - echo $SECONDS > /tmp/ci/seconds.txt
     ccupload_script:
       - bash upload_ccache.sh
     telegram_script:
       - bash tg.sh || true
-      - sleep 5s
