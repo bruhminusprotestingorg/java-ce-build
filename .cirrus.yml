@@ -22,7 +22,7 @@ task:
     setupcc_script:
       - SECONDS=0
       - bash privatize_repo.sh
-      - if [[ "$(tail -1 download_ccache.sh)" -ge "15" ]]; then echo "Build Failed!" && exit 1; fi
+      - if [[ "$(tail -1 download_ccache.sh)" -ge "10" ]]; then echo "Build Failed!" && exit 1; fi
       - if [[ "$(tail -1 download_ccache.sh)" == "CCACHE_RUN=0" ]]; then echo 'skip ccache'; else bash download_ccache.sh ; fi
       - echo $SECONDS > /tmp/ci/seconds.txt
     additional_script:
