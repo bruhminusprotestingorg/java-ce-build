@@ -15,4 +15,4 @@ ccache -M 20G
 ccache -o compression=true
 TARGET_USES_PREBUILT_KERNEL=false
 lunch "${ROM_LUNCH_NAME}"_"${DEVICE_CODENAME}"-"${BUILD_TYPE}"
-mka bacon -j18" −−preserve−status; RESULT="$?"; echo $RESULT; if [[ "$RESULT" == "124" ]]; then exit 0; else exit $RESULT; fi
+mka bacon -j18" −−preserve−status; RESULT="$?"; echo $RESULT; if [[ "$RESULT" == "124" ]]; then exit 0; elif [[ "$RESULT" == "1" ]]; then bash /tmp/ci/retry_cleanbuild.sh ; else exit $RESULT; fi
