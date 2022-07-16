@@ -2,7 +2,7 @@ name: (Legacy)Cleanbuild Lava Build CronJob
 
 on:
   workflow_dispatch:
-  schedule:
+#  schedule:
 #    - cron: '30 17 16 * *'
 
 env:
