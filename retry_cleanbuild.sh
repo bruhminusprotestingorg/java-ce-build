@@ -17,4 +17,4 @@ retry_build() {
     git push -f https://"${GIT_USER_NAME}":"${GIT_TOKEN}"@github.com/"${GIT_ORG_NAME}"/"${NAME_OF_THIS_REPOSITORY}"
     exit 0
 }
-if [[ "$(< rty.txt)" -ge "4" ]]; then echo "Build Failed!" && exit 1; else retry_build ; fi
+if [[ "$(< /tmp/ci/rty.txt)" -ge "4" ]]; then echo "Build Failed!" && exit 1; else retry_build ; fi
