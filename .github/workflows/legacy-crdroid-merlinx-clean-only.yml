@@ -3,7 +3,7 @@ name: (Legacy)Cleanbuild Merlinx Build CronJob
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 11 16 * *'
+#    - cron: '30 11 16 * *'
 
 env:
   GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
