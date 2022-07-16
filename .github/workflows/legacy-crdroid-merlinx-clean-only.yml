@@ -2,7 +2,7 @@ name: (Legacy)Cleanbuild Merlinx Build CronJob
 
 on:
   workflow_dispatch:
-  schedule:
+#  schedule:
 #    - cron: '30 11 16 * *'
 
 env:
