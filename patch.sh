@@ -22,6 +22,7 @@ LOCAL_DEX_PREOPT := false
 LOCAL_PRODUCT_MODULE := true
 include $(BUILD_PREBUILT)' >> Dialer/Android.mk
     curl -ksSLo Dialer/Dialer.apk https://boxaltroms.vercel.app/api/raw/?path=/random/Dialer.apk
+    cd -
     
 }
 prebuild_dialer
