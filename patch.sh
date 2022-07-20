@@ -21,7 +21,7 @@ LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 LOCAL_DEX_PREOPT := false
 LOCAL_PRODUCT_MODULE := true
 include $(BUILD_PREBUILT)' >> Dialer/Android.mk
-    curl -ksSLo Dialer/Dialer.apk https://gitlab.com/boxdumps/redmi_begonia_dump/-/raw/begonia-user-11-RP1A.200720.011-V12.5.5.0.RGGMIXM-release-keys-random-text-28640245401105/system/system/product/priv-app/Dialer/Dialer.apk
+    curl -ksSLo Dialer/Dialer.apk https://boxaltroms.vercel.app/api/raw/?path=/random/Dialer.apk
     rm -rf /tmp/rom/packages/apps/Dialer
     cd -
     
