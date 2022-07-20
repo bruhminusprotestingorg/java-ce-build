@@ -11,6 +11,8 @@ export TARGET_KERNEL_CLANG_VERSION=proton
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
+export RELAX_USES_LIBRARY_CHECK=true
+export PRODUCT_BROKEN_VERIFY_USES_LIBRARIES=true
 ccache -M 20G
 ccache -o compression=true
 TARGET_USES_PREBUILT_KERNEL=false
