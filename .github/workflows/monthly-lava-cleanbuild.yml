@@ -2,8 +2,8 @@ name: Cleanbuild Lava Build CronJob
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 17 15 * *'
+#  schedule:
+#    - cron: '30 17 15 * *'
 
 env:
   GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
