@@ -2,7 +2,13 @@ name: Dirtybuild Lava Build
 
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '30 17 15 * *'
+    - cron: '0 5 16 * *'
+    - cron: '0 14 16 * *'
+    - cron: '0 23 16 * *'
+    - cron: '0 8 17 * *'
+  
 env:
   GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
   GIT_CONFIG_EMAIL: "96990463+bruhminusprotesting@users.noreply.github.com"
