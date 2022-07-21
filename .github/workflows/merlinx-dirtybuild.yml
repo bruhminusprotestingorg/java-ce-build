@@ -2,6 +2,12 @@ name: Dirtybuild Merlinx Build
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '30 11 15 * *'
+    - cron: '30 9 16 * *'
+    - cron: '30 18 16 * *'
+    - cron: '30 3 17 * *'
+    - cron: '30 12 17 * *'
 
 env:
   GIT_GITHUB_TOKEN: "${{secrets.GIT_GITHUB_TOKEN}}"
