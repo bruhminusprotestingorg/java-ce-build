@@ -44,7 +44,3 @@ task:
       - echo "Build Timeout in "$(( $((6660 - $SECONDS)) / 60 ))"m"
       - bash build.sh
       - echo $SECONDS > /tmp/ci/seconds.txt
-    ccupload_script:
-      - bash upload_ccache.sh
-    telegram_script:
-      - bash tg.sh || true
